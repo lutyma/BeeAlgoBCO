@@ -1,6 +1,8 @@
 package edu.asu.emit.qyan.alg.control;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class Reclutamiento {
@@ -19,6 +21,14 @@ public class Reclutamiento {
 
 
 	public ArrayList<Abeja> reclutarAbejas(){
+		
+		ordenarListaAbejas(listaAbejas);
+		int menorBloqueo = listaAbejas.get(0).getContadorBloqueo();
+		
+		for(Abeja ab:listaAbejas) {
+			System.out.println("lista abejas ordenadas:"+ ab);
+		}
+		
 		ArrayList<Abeja> respuesta = new ArrayList<Abeja>();
 		ArrayList<Abeja> seguidoras = new ArrayList<Abeja>();
 		ArrayList<Abeja> reclutadoras = new ArrayList<Abeja>();
@@ -27,14 +37,14 @@ public class Reclutamiento {
 
 		for (int i = 0; i < listaAbejas.size(); i++) {
 
-			if(listaAbejas.get(i).getPb() < rmd) {
-				seguidoras.add(listaAbejas.get(i));
+			if( listaAbejas.get(i).getContadorBloqueo() == menorBloqueo && listaAbejas.get(i).getPb() > rmd) {
+				reclutadoras.add(listaAbejas.get(i));
 				//	System.out.println("abejas seguidoras:"+ listaAbejas.get(i));
 
 			}
 			else {
 
-				reclutadoras.add(listaAbejas.get(i));
+				seguidoras.add(listaAbejas.get(i));
 				//	System.out.println("abejas reclutadoras:"+ listaAbejas.get(i));
 
 			}
@@ -150,4 +160,15 @@ public class Reclutamiento {
 		return respuesta_nueva_abeja;
 	}
 
+	public void ordenarListaAbejas(ArrayList<Abeja> listaAbejas) {
+
+		Collections.sort(listaAbejas, new Comparator<Abeja>(){
+
+			@Override
+			public int compare(Abeja o1, Abeja o2) {
+				return String.valueOf(o1.getContadorBloqueo()).compareToIgnoreCase(String.valueOf(o2.getContadorBloqueo()));
+			}
+		});
+			
+	}
 }

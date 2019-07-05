@@ -221,9 +221,8 @@ public class Aplicacion {
 						}  
 					}
 					//	System.out.println("abejaID:"+ abe.getId() + "apl:" + abe.getAPL() + "su:" + abe.getSU());
-
+					abe.setContadorBloqueo(cont);
 					su = funcionObjetivo(abe.getG());
-
 
 					//	double funcionObjetivo = su;
 					//	funcionObjetivo = Math.round(funcionObjetivo * 100) / 100d;

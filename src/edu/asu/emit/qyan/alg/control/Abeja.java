@@ -14,6 +14,7 @@ public class Abeja {
     private double ob;
     private double pb;
     private double reclut;
+    private int contadorBloqueo;
     
     
 	public Abeja() {
@@ -114,11 +115,19 @@ public class Abeja {
 		this.reclut = reclut;
 	}
 
+	public int getContadorBloqueo() {
+		return contadorBloqueo;
+	}
+
+	public void setContadorBloqueo(int contadorBloqueo) {
+		this.contadorBloqueo = contadorBloqueo;
+	}
+
 	@Override
 	public String toString() {
 		return "Abeja [Id=" + Id + ", Demandas=" + Demandas + ", solucion=" + solucion + ", funcionObjetivo="
-				+ funcionObjetivo + ", SU=" + SU + ", APL=" + APL + ", ob=" + ob + ", pb=" + pb + ", reclut=" + reclut
-				+ "]";
+				+ funcionObjetivo + ", g=" + g + ", SU=" + SU + ", APL=" + APL + ", ob=" + ob + ", pb=" + pb
+				+ ", reclut=" + reclut + ", contadorBloqueo=" + contadorBloqueo + "]";
 	}
 
     
