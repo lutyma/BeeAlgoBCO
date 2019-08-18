@@ -21,14 +21,14 @@ public class Reclutamiento {
 
 
 	public ArrayList<Abeja> reclutarAbejas(){
-		
+
 		ordenarListaAbejas(listaAbejas);
 		int menorBloqueo = listaAbejas.get(0).getContadorBloqueo();
-		
+
 		for(Abeja ab:listaAbejas) {
 			System.out.println("lista abejas ordenadas:"+ ab);
 		}
-		
+
 		ArrayList<Abeja> respuesta = new ArrayList<Abeja>();
 		ArrayList<Abeja> seguidoras = new ArrayList<Abeja>();
 		ArrayList<Abeja> reclutadoras = new ArrayList<Abeja>();
@@ -57,31 +57,37 @@ public class Reclutamiento {
 		}
 		System.out.println();
 
-		for (int j = 0; j < reclutadoras.size(); j++) {
-			sumatoriapb = sumatoriapb + reclutadoras.get(j).getPb();
+		if(!reclutadoras.isEmpty()) {
 
-			//	System.out.println("Numero de abejas reclutadoras"+ reclutadoras.size());
+			for (int j = 0; j < reclutadoras.size(); j++) {
+				sumatoriapb = sumatoriapb + reclutadoras.get(j).getPb();
+
+				//	System.out.println("Numero de abejas reclutadoras"+ reclutadoras.size());
+			}
+
+			for (int k = 0; k < reclutadoras.size(); k++) {
+				Abeja auxiliar = new Abeja();
+
+				double pbreclutamiento = (float)reclutadoras.get(k).getOb() / sumatoriapb;
+				pbreclutamiento = Math.round(pbreclutamiento * 100) / 100d; 
+				//	System.out.println("pbreclutamiento:"+ pbreclutamiento);
+
+				auxiliar = reclutadoras.get(k);	
+				auxiliar.setReclut(pbreclutamiento);
+				reclutadoraspb.add(auxiliar);
+				respuesta.add(auxiliar);
+			}
 		}
-		
-		for (int k = 0; k < reclutadoras.size(); k++) {
-			Abeja auxiliar = new Abeja();
-
-			double pbreclutamiento = (float)reclutadoras.get(k).getOb() / sumatoriapb;
-			pbreclutamiento = Math.round(pbreclutamiento * 100) / 100d; 
-			//	System.out.println("pbreclutamiento:"+ pbreclutamiento);
-
-			auxiliar = reclutadoras.get(k);	
-			auxiliar.setReclut(pbreclutamiento);
-			reclutadoraspb.add(auxiliar);
-			respuesta.add(auxiliar);
+		else {
+			respuesta = seguidoras;
 		}
 
 		for(Abeja ab:reclutadoraspb) {
 
 			System.out.println("lista de abejas reclutadoras:"+ ab + "tamaño:"+ ab.getDemandas().size());
 		}
-	//	System.out.println();
-		
+		//	System.out.println();
+
 		if(!seguidoras.isEmpty()) {
 			double sumapb = 0;
 			double numeroAleatorio = 0;
@@ -101,7 +107,7 @@ public class Reclutamiento {
 				while( x < reclutadoraspb.size() ){
 					sumaseleccion = sumaseleccion + reclutadoraspb.get(x).getReclut();
 					if(sumaseleccion >= numeroAleatorio) {
-						
+
 						abemutada = mutacion(seguidoras.get(z), reclutadoraspb.get(x));
 						abemutada.setReclut(0);
 						x = reclutadoraspb.size();     
@@ -121,7 +127,7 @@ public class Reclutamiento {
 		List<Request> lista = new ArrayList<Request>();
 		for(int a = 0; a < reclutadora.getDemandas().size(); a++) {
 			Request auxiliar = new Request(reclutadora.getDemandas().get(a).getOrigen(), reclutadora.getDemandas().get(a).getDestino(), reclutadora.getDemandas().get(a).getFs());
-		    lista.add(auxiliar);
+			lista.add(auxiliar);
 		}
 		Abeja respuesta_nueva_abeja = seguidora;
 		AsignacionDemanda ordenar = new AsignacionDemanda();
@@ -133,7 +139,7 @@ public class Reclutamiento {
 		//   System.out.println("demanda a copiar" + reclutadora.getDemandas());
 
 		// se vuelve a ordenar las demandas restante de la abeja seguidora
-		for(int i = pasofinal+1; i < seguidora.getDemandas().size(); i++) {
+	/*	for(int i = pasofinal+1; i < seguidora.getDemandas().size(); i++) {
 			// 	 System.out.println("pasofinal:"+ pasofinal);
 
 			Identificador auxiliarId = new Identificador();
@@ -154,7 +160,7 @@ public class Reclutamiento {
 			demandasactuales.set(j, demanNuevas.get(aux)) ;
 			aux++;
 
-		}
+		}             */
 		respuesta_nueva_abeja.setDemandas(demandasactuales);
 
 		return respuesta_nueva_abeja;
@@ -169,6 +175,6 @@ public class Reclutamiento {
 				return String.valueOf(o1.getContadorBloqueo()).compareToIgnoreCase(String.valueOf(o2.getContadorBloqueo()));
 			}
 		});
-			
+
 	}
 }

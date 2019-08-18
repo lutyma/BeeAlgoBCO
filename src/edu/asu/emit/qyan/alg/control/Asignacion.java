@@ -20,16 +20,16 @@ public class Asignacion {
     public void marcarSlotUtilizados(int id) {
         
         int mitad = lugarInicialAsignacion(resultado);
+        String[] caminosLista;
+        caminosLista = resultado.camino.split(",");
         
      //  System.out.println("######" + resultado.camino.length());
 
-        for (int i = 0; i < resultado.camino.length() - 1; i++) {
+        for (int i = 0; i < caminosLista.length - 1; i++) {
 
-//            BaseVertex id1 = resultado.camino.get_vertex_list().get(i);
-//            BaseVertex id2 = resultado.camino.get_vertex_list().get(i + 1);
 
-            int k = (int) resultado.camino.charAt(i) - 48;
-            int l = (int) resultado.camino.charAt(i+1) - 48;
+            int k = Integer.parseInt(caminosLista[i]);
+            int l = Integer.parseInt(caminosLista[i+1]);
 
             int n1 = g.posicionNodo(k);
             int n2 = g.posicionNodo(l);
@@ -66,10 +66,10 @@ public class Asignacion {
        //     System.out.println("######");
             for (int x = 0; x < g.grafo[0][0].listafs.length; x++) {
 
-           // 	 System.out.println("###### hola ###########");
-               System.out.println("grafo de la abeja en cuestion :" + g.grafo[p][m].listafs[x].libreOcupado);
+            //	 System.out.println("###### hola ###########");
+              System.out.println("grafo de la abeja en cuestion :" + g.grafo[p][m].listafs[x].libreOcupado);
             }
-            System.out.println("######");
+         //   System.out.println("######");
         }
 
 

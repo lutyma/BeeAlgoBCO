@@ -34,7 +34,7 @@ public class GrafoMatriz {
 
 		for (int x=0; x < grafo.length; x++) {
 			for (int y=0; y < grafo[x].length; y++) {
-				grafo[x][y] = new Enlace(0,0,5);
+				grafo[x][y] = new Enlace(0,0,0,200);
 
 				for (int k=0; k < grafo[x][y].listafs.length; k++) {
 
@@ -45,18 +45,20 @@ public class GrafoMatriz {
 		}	
 	}
 	
-	public void agregarRuta(int origen, int destino, int distancia, int cantfs) {
-	 //	System.out.println(origen);
-	 //	System.out.println(destino);
-		int n1 = posicionNodo(origen);
-	 //	System.out.print(n1);
-		
-		int n2 = posicionNodo(destino);
-		grafo[n1][n2].distancia = distancia;
-		grafo[n1][n2].cantfs = cantfs;
+	public void agregarRuta(int origen, int destino, int distancia, int tiempo, int cantfs) {
+		 //	System.out.println(origen);
+		 //	System.out.println(destino);
+			int n1 = posicionNodo(origen);
+		 //	System.out.print(n1);
+			
+			int n2 = posicionNodo(destino);
+			grafo[n1][n2].distancia = distancia;
+			grafo[n1][n2].tiempo = tiempo;
+			grafo[n1][n2].cantfs = cantfs;
 
-		grafo[n2][n1].distancia = distancia;
-		grafo[n2][n1].cantfs = cantfs;
+			grafo[n2][n1].distancia = distancia;
+			grafo[n2][n1].tiempo = tiempo;
+			grafo[n2][n1].cantfs = cantfs;
 
 	}
 	
