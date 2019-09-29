@@ -18,105 +18,31 @@ public class Aplicacion {
 	public static VariableGraph graph = new VariableGraph("data/test_16");
 
 	public static void main(String[] args) throws InterruptedException, IOException {	
-
+		
 		crearArchivoCaminos();
 		leerArchivoCaminos();
 
 		// Matriz que representa la red igual al archivo test_16 que se va a utilar al tener los caminos.
-		int[] vertices = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39};
+		int[] vertices = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
 		GrafoMatriz g = new GrafoMatriz(vertices);
 		g.InicializarGrafo(g.grafo);
 
-		g.agregarRuta(0, 12, 1, 3, 60);
-		g.agregarRuta(0, 13, 1, 3, 60);
-		g.agregarRuta(0, 16, 1, 3, 60);
-		g.agregarRuta(0, 19, 1, 3, 60);
-		g.agregarRuta(0, 28, 1, 3, 60);
-		g.agregarRuta(1, 3, 1, 3, 60);
-		g.agregarRuta(1, 4, 1, 3, 60);
-		g.agregarRuta(1, 31, 1, 3, 60);
-		g.agregarRuta(1, 39, 1, 3, 60);
-		g.agregarRuta(2, 17, 1, 3, 60);
-		g.agregarRuta(2, 21, 1, 3, 60);
-		g.agregarRuta(2, 23, 1, 3, 60);
-		g.agregarRuta(2, 25, 1, 3, 60);
-		g.agregarRuta(3, 5, 1, 3, 60);
-		g.agregarRuta(3, 10, 1, 3, 60);
-		g.agregarRuta(3, 13, 1, 3, 60);
-		g.agregarRuta(3, 36, 1, 3, 60);
-		g.agregarRuta(4, 31, 1, 3, 60);
-		g.agregarRuta(4, 33, 1, 3, 60);
-		g.agregarRuta(4, 37, 1, 3, 60);
-		g.agregarRuta(5, 10, 1, 3, 60);
-		g.agregarRuta(5, 13, 1, 3, 60);
-		g.agregarRuta(5, 29, 1, 3, 60);
-		g.agregarRuta(5, 36, 1, 3, 60);
-		g.agregarRuta(6, 9, 1, 3, 60);
-		g.agregarRuta(6, 24, 1, 3, 60);
-		g.agregarRuta(6, 29, 1, 3, 60);
-		g.agregarRuta(6, 35, 1, 3, 60);
-		g.agregarRuta(7, 8, 1, 3, 60);
-		g.agregarRuta(7, 14, 1, 3, 60);
-		g.agregarRuta(7, 15, 1, 3, 60);
-		g.agregarRuta(7, 32, 1, 3, 60);
-		g.agregarRuta(8, 14, 1, 3, 60);
-		g.agregarRuta(8, 15, 1, 3, 60);
-		g.agregarRuta(8, 18, 1, 3, 60);
-		g.agregarRuta(8, 32, 1, 3, 60);
-		g.agregarRuta(9, 22, 1, 3, 60);
-		g.agregarRuta(9, 29, 1, 3, 60);
-		g.agregarRuta(9, 35, 1, 3, 60);
-		g.agregarRuta(9, 39, 1, 3, 60);
-		g.agregarRuta(10, 12, 1, 3, 60);
-		g.agregarRuta(10, 19, 1, 3, 60);
-		g.agregarRuta(11, 14, 1, 3, 60);
-		g.agregarRuta(11, 15, 1, 3, 60);
-		g.agregarRuta(11, 32, 1, 3, 60);
-		g.agregarRuta(11, 38, 1, 3, 60);
-		g.agregarRuta(12, 19, 1, 3, 60);
-		g.agregarRuta(12, 28, 1, 3, 60);
-		g.agregarRuta(13, 28, 1, 3, 60);
-		g.agregarRuta(13, 36, 1, 3, 60);
-		g.agregarRuta(14, 15, 1, 3, 60);
-		g.agregarRuta(15, 27, 1, 3, 60);
-		g.agregarRuta(16, 19, 1, 3, 60);
-		g.agregarRuta(16, 28, 1, 3, 60);
-		g.agregarRuta(16, 36, 1, 3, 60);
-		g.agregarRuta(17, 21, 1, 3, 60);
-		g.agregarRuta(17, 23, 1, 3, 60);
-		g.agregarRuta(17, 25, 1, 3, 60);
-		g.agregarRuta(18, 25, 1, 3, 60);
-		g.agregarRuta(18, 26, 1, 3, 60);
-		g.agregarRuta(18, 27, 1, 3, 60);
-		g.agregarRuta(18, 30, 1, 3, 60);
-		g.agregarRuta(20, 27, 1, 3, 60);
-		g.agregarRuta(20, 33, 1, 3, 60);
-		g.agregarRuta(20, 34, 1, 3, 60);
-		g.agregarRuta(20, 38, 1, 3, 60);
-		g.agregarRuta(21, 22, 1, 3, 60);
-		g.agregarRuta(21, 23, 1, 3, 60);
-		g.agregarRuta(22, 23, 1, 3, 60);
-		g.agregarRuta(22, 39, 1, 3, 60);
-		g.agregarRuta(23, 25, 1, 3, 60);
-		g.agregarRuta(24, 31, 1, 3, 60);
-		g.agregarRuta(24, 35, 1, 3, 60);
-		g.agregarRuta(24, 36, 1, 3, 60);
-		g.agregarRuta(24, 37, 1, 3, 60);
-		g.agregarRuta(25, 26, 1, 3, 60);
-		g.agregarRuta(26, 30, 1, 3, 60);
-		g.agregarRuta(26, 34, 1, 3, 60);
-		g.agregarRuta(26, 39, 1, 3, 60);
-		g.agregarRuta(27, 38, 1, 3, 60);
-		g.agregarRuta(28, 37, 1, 3, 60);
-		g.agregarRuta(29, 35, 1, 3, 60);
-		g.agregarRuta(29, 38, 1, 3, 60);
-		g.agregarRuta(30, 34, 1, 3, 60);
-		g.agregarRuta(30, 35, 1, 3, 60);
-		g.agregarRuta(31, 33, 1, 3, 60);
-		g.agregarRuta(32, 34, 1, 3, 60);
-		g.agregarRuta(33, 37, 1, 3, 60);
-		g.agregarRuta(33, 38, 1, 3, 60);
-
+		g.agregarRuta(2, 1, 1, 3, 60);
+		g.agregarRuta(5, 2, 1, 3, 60);
+		g.agregarRuta(6, 2, 1, 3, 60);
+		g.agregarRuta(12, 2, 1, 3, 60);
+		g.agregarRuta(6, 3, 1, 3, 60);
+		g.agregarRuta(9, 3, 1, 3, 60);
+		g.agregarRuta(7, 4, 1, 3, 60);
+		g.agregarRuta(10, 4, 1, 3, 60);
+		g.agregarRuta(11, 4, 1, 3, 60);
+		g.agregarRuta(7, 5, 1, 3, 60);
+		g.agregarRuta(8, 5, 1, 3, 60);
+		g.agregarRuta(7, 6, 1, 3, 60);
+		g.agregarRuta(10, 8, 1, 3, 60);
+		g.agregarRuta(12, 9, 1, 3, 60);
+		g.agregarRuta(11, 10, 1, 3, 60);
+		
 		//  int inicio = 1;
 		// int fin    = 5;
 
@@ -213,7 +139,7 @@ public class Aplicacion {
 		    } 
 		 */
 		Abeja resultadoFinal = new Abeja();
-		for(int z = 0; z < 2; z++) {
+		for(int z = 0; z < 50; z++) {
 
 			ArrayList<Abeja> listaNuevasAbejas = new ArrayList();
 
@@ -370,10 +296,9 @@ public class Aplicacion {
 		System.out.println("#############");
 		System.out.println("Cantidad de conexiones entrantes :" + contlineatxt);
 
-		System.out.println("La mejor opción la tiene la abeja: " + resultadoFinal);
-
+		System.out.println("La mejor opción la tiene la abeja: " + resultadoFinal);     
+		
 	}
-
 
 	private static void leerArchivoCaminos() throws IOException {
 		FileReader input = new FileReader("data/Kcaminos");
@@ -396,8 +321,8 @@ public class Aplicacion {
 		PrintWriter writer = new PrintWriter("data/Kcaminos", "UTF-8");
 
 		// en este for hay que poner la cantidad de vertices que tenemos
-		for (int i = 0; i <= 24; i++) {
-			for (int k = 0; k <= 24; k++) {
+		for (int i = 0; i <= 12; i++) {
+			for (int k = 0; k <= 12; k++) {
 				if (i != k) {
 					List<Path> shortest_paths_list = yenAlg.get_shortest_paths(graph.get_vertex(i), graph.get_vertex(k), 4);
 					//	List<Path> shortest_paths_list2 = yenAlg.get_shortest_paths(graph.get_vertex(k), graph.get_vertex(i), 4);

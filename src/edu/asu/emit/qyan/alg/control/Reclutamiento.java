@@ -88,7 +88,7 @@ public class Reclutamiento {
 		}
 		//	System.out.println();
 
-		if(!seguidoras.isEmpty()) {
+		if(!seguidoras.isEmpty() && !reclutadoras.isEmpty()) {
 			double sumapb = 0;
 			double numeroAleatorio = 0;
 			double sumaseleccion = 0;
