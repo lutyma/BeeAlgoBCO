@@ -11,6 +11,7 @@ public class resultadoSlot {
 	int indice;
 	int contador;
 	int cantidadfs;
+	int caminoUtilizado;
 	
 	public resultadoSlot() {
 		super();
@@ -50,7 +51,6 @@ public class resultadoSlot {
 	public void setCantidadfs(int cantidadfs) {
 		this.cantidadfs = cantidadfs;
 	}
-	
 	@Override
 	public String toString() {
 		return "resultadoSlot [camino=" + camino + ", vectorAsignacion=" + Arrays.toString(vectorAsignacion)

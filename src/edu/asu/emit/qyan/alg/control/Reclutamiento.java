@@ -26,7 +26,7 @@ public class Reclutamiento {
 		int menorBloqueo = listaAbejas.get(0).getContadorBloqueo();
 
 		for(Abeja ab:listaAbejas) {
-			System.out.println("lista abejas ordenadas:"+ ab);
+	//		System.out.println("lista abejas ordenadas:"+ ab);
 		}
 
 		ArrayList<Abeja> respuesta = new ArrayList<Abeja>();
@@ -53,9 +53,9 @@ public class Reclutamiento {
 
 		for(Abeja ab:seguidoras) {
 
-			System.out.println("lista de abejas seguidoras:"+ ab + "tamaño:"+ ab.getDemandas().size());
+	//		System.out.println("lista de abejas seguidoras:"+ ab + "tamaño:"+ ab.getDemandas().size());
 		}
-		System.out.println();
+	//	System.out.println();
 
 		if(!reclutadoras.isEmpty()) {
 
@@ -84,7 +84,7 @@ public class Reclutamiento {
 
 		for(Abeja ab:reclutadoraspb) {
 
-			System.out.println("lista de abejas reclutadoras:"+ ab + "tamaño:"+ ab.getDemandas().size());
+	//		System.out.println("lista de abejas reclutadoras:"+ ab + "tamaño:"+ ab.getDemandas().size());
 		}
 		//	System.out.println();
 
@@ -126,7 +126,7 @@ public class Reclutamiento {
 		int aux = 0;
 		List<Request> lista = new ArrayList<Request>();
 		for(int a = 0; a < reclutadora.getDemandas().size(); a++) {
-			Request auxiliar = new Request(reclutadora.getDemandas().get(a).getOrigen(), reclutadora.getDemandas().get(a).getDestino(), reclutadora.getDemandas().get(a).getFs());
+			Request auxiliar = new Request(reclutadora.getDemandas().get(a).getOrigen(), reclutadora.getDemandas().get(a).getDestino(), reclutadora.getDemandas().get(a).getFs(), reclutadora.getDemandas().get(a).getId());
 			lista.add(auxiliar);
 		}
 		Abeja respuesta_nueva_abeja = seguidora;

@@ -5,6 +5,7 @@ public class Request {
 	private int origen;
 	private int destino;
 	private int fs;
+	private int id;
 
 
 
@@ -14,10 +15,11 @@ public class Request {
 
 	}
 
-	public Request(int origen, int destino, int fs) {
+	public Request(int origen, int destino, int fs, int id) {
 		this.origen = origen;
 		this.destino = destino;
 		this.fs = fs;
+		this.id = id;
 	}
 
 
@@ -56,12 +58,19 @@ public class Request {
 		this.fs = fs;
 	}
 
+	public int getId() {
+		return id;
+	}
 
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	@Override
 	public String toString() {
-		return "Request [origen=" + origen + ", destino=" + destino + ", fs=" + fs + "]";
+		return "Request [origen=" + origen + ", destino=" + destino + ", fs=" + fs + ", id=" + id + "]";
 	}
-
+	
+	
 
 }
