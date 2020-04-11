@@ -15,7 +15,7 @@ public class Asignacion {
 
 
 
-    public void marcarSlotUtilizados(Integer id) {
+    public void marcarSlotUtilizados(Integer id, int tiempo) {
 
         int mitad = lugarInicialAsignacion(resultado);
         String[] caminosLista;
@@ -54,8 +54,8 @@ public class Asignacion {
                     g.grafo[n2][n1].listafs[mitad].libreOcupado = 1;
                     g.grafo[n1][n2].listafs[mitad].id = id;
                     g.grafo[n2][n1].listafs[mitad].id = id;
-                    g.grafo[n1][n2].listafs[mitad].tiempo = g.grafo[n1][n2].tiempo;
-                    g.grafo[n2][n1].listafs[mitad].tiempo = g.grafo[n2][n1].tiempo;
+                    g.grafo[n1][n2].listafs[mitad].tiempo = tiempo;
+                    g.grafo[n2][n1].listafs[mitad].tiempo = tiempo;
 
                     //concatenar y guardar el id de la conexion
                     g.grafo[n1][n2].enlace.add(id.toString() + ","+ nuevo_camino);
@@ -70,8 +70,8 @@ public class Asignacion {
                     g.grafo[n2][n1].listafs[mitadizquierda].libreOcupado = 1;
                     g.grafo[n1][n2].listafs[mitadizquierda].id = id;
                     g.grafo[n2][n1].listafs[mitadizquierda].id = id;
-                    g.grafo[n1][n2].listafs[mitadizquierda].tiempo = g.grafo[n1][n2].tiempo;
-                    g.grafo[n2][n1].listafs[mitadizquierda].tiempo = g.grafo[n2][n1].tiempo;
+                    g.grafo[n1][n2].listafs[mitadizquierda].tiempo = tiempo;
+                    g.grafo[n2][n1].listafs[mitadizquierda].tiempo = tiempo;
 
                 } else if (x != 0 && (x % 2) != 0) {
                     mitadderecha++;
@@ -79,8 +79,8 @@ public class Asignacion {
                     g.grafo[n2][n1].listafs[mitadderecha].libreOcupado = 1;
                     g.grafo[n1][n2].listafs[mitadderecha].id = id;
                     g.grafo[n2][n1].listafs[mitadderecha].id = id;
-                    g.grafo[n1][n2].listafs[mitadderecha].tiempo = g.grafo[n1][n2].tiempo;
-                    g.grafo[n2][n1].listafs[mitadderecha].tiempo = g.grafo[n2][n1].tiempo;
+                    g.grafo[n1][n2].listafs[mitadderecha].tiempo = tiempo;
+                    g.grafo[n2][n1].listafs[mitadderecha].tiempo = tiempo;
                 }
             }
         }

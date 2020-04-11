@@ -43,7 +43,8 @@ public class AsignacionDemanda {
 				// Identificador es un objeto que se utiliza para mantener el fs original ya que para el 
 			    // reordenamiento se multiplica el fs de cada demanda luego se ordena y hay volver a traer el fs original.		
 					Identificador auxiliarId = new Identificador();
-					Request auxiliar = new Request(demandas.get(j).getOrigen(), demandas.get(j).getDestino(), demandas.get(j).getFs(), demandas.get(j).getId());
+					Request auxiliar = new Request(demandas.get(j).getOrigen(), demandas.get(j).getDestino(), demandas.get(j).getFs(), demandas.get(j).getId(), 
+							demandas.get(j).getTiempo());
 					int numeroAleatorio = (int) (Math.random() * 5) + 1;
 					auxiliarId.setRandom(numeroAleatorio);
 					auxiliar.setFs((auxiliar.getFs()*numeroAleatorio));
@@ -93,7 +94,8 @@ public class AsignacionDemanda {
 				// Identificador es un objeto que se utiliza para mantener el fs original ya que para el 
 			    // reordenamiento se multiplica el fs de cada demanda luego se ordena y hay volver a traer el fs original.		
 					Identificador auxiliarId = new Identificador();
-					Request auxiliar = new Request(demandas.get(j).getOrigen(), demandas.get(j).getDestino(), demandas.get(j).getFs(), demandas.get(j).getId());
+					Request auxiliar = new Request(demandas.get(j).getOrigen(), demandas.get(j).getDestino(), demandas.get(j).getFs(), demandas.get(j).getId(),
+							demandas.get(j).getTiempo());
 					int numeroAleatorio = (int) (Math.random() * 5) + 1;
 					auxiliarId.setRandom(numeroAleatorio);
 					auxiliar.setFs((auxiliar.getFs()*numeroAleatorio));
@@ -128,6 +130,7 @@ public class AsignacionDemanda {
 		int destino = 0;
 		int idRequest = 0;
 		int fs = 0;
+		int tiempo = 0;
 		int id = 1000;
 		int aux = 0;
 		
@@ -136,6 +139,7 @@ public class AsignacionDemanda {
 			origen = 0;
 			destino = 0;
 			idRequest = 0;
+			tiempo = 0;
 			fs = 0;
 			aux = 0;
 			for(int i = 0; i < conversiones.size(); i++) {
@@ -144,6 +148,7 @@ public class AsignacionDemanda {
 					destino = conversiones.get(i).getRequest().getDestino();
 					idRequest = conversiones.get(i).getRequest().getId();
 					fs = (conversiones.get(i).getRequest().getFs());
+					tiempo = conversiones.get(i).getRequest().getTiempo();
 					aux = i;
 					//   auxiliar = new Request(conversiones.get(i).getRequest().getOrigen(), conversiones.get(i).getRequest().getDestino(), fs);
 					//	auxiliar.setOrigen(conversiones.get(i).getRequest().getOrigen());
@@ -158,7 +163,7 @@ public class AsignacionDemanda {
 			fs = (conversiones.get(aux).getRequest().getFs()/conversiones.get(aux).getRandom());
 			conversiones.get(aux).setMarcado(1);
 		//	System.out.println("parametros" + origen + ","+ destino + ","+fs + ","+ id);
-			Request auxiliar = new Request(origen, destino, fs, idRequest);
+			Request auxiliar = new Request(origen, destino, fs, idRequest, tiempo);
 			
 			demandas.add(auxiliar);
 		}

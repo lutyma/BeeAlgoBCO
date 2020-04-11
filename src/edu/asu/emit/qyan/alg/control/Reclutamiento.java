@@ -126,7 +126,8 @@ public class Reclutamiento {
 		int aux = 0;
 		List<Request> lista = new ArrayList<Request>();
 		for(int a = 0; a < reclutadora.getDemandas().size(); a++) {
-			Request auxiliar = new Request(reclutadora.getDemandas().get(a).getOrigen(), reclutadora.getDemandas().get(a).getDestino(), reclutadora.getDemandas().get(a).getFs(), reclutadora.getDemandas().get(a).getId());
+			Request auxiliar = new Request(reclutadora.getDemandas().get(a).getOrigen(), reclutadora.getDemandas().get(a).getDestino(), reclutadora.getDemandas().get(a).getFs(), reclutadora.getDemandas().get(a).getId(),
+					reclutadora.getDemandas().get(a).getTiempo());
 			lista.add(auxiliar);
 		}
 		Abeja respuesta_nueva_abeja = seguidora;

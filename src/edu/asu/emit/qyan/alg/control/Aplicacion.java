@@ -23,9 +23,9 @@ public class Aplicacion {
 	public static void main(String[] args) throws InterruptedException, IOException {	
 
 		for (int h = 1; h <= 100; h++) {
-            crearArchivosSolicitudes(h);
+			crearArchivosSolicitudes(h);
 		}
-		
+
 		crearArchivoCaminos();
 		leerArchivoCaminos();
 
@@ -56,15 +56,15 @@ public class Aplicacion {
 		g.agregarRuta(11 ,13 ,1, 3, 200);
 		g.agregarRuta(11 ,14 ,1, 3, 200);
 		g.agregarRuta(13 ,14 ,1, 3, 200);
-		
+
 
 
 		ArrayList<Abeja> listaAbejaResult = new ArrayList();
 		int contBloquePorTiempo = 0;
 		int contSemiBloqueoTotal = 0;
 		for(int w = 1; w <= 100; w++) {
-//			System.out.println("w:" + w);
-//			System.out.println("solicitud numero:" + "data/solicitudes" + w);
+			//			System.out.println("w:" + w);
+			System.out.println("solicitud numero:" + "data/solicitudes" + w);
 			FileReader input = new FileReader("data/solicitudes" + w);
 			BufferedReader bufRead = new BufferedReader(input);
 			String linea = bufRead.readLine();
@@ -73,7 +73,7 @@ public class Aplicacion {
 			int contlineatxt = 0;
 			int cont = 0;
 			int semiBloqueo = 0;
-			
+
 			while (linea != null ) {
 
 				contlineatxt++;
@@ -89,13 +89,14 @@ public class Aplicacion {
 				//	System.out.println("origen:" + str_list[0]);
 				solicitud.setDestino(Integer.parseInt(str_list[1]));
 				//	System.out.println(str_list[1]);
-//				int calAux = Integer.parseInt(str_list[2]);
-//				double doubleAux = Integer.parseInt(str_list[2]);
-//				doubleAux = Math.ceil(calAux/10);
-//				calAux = (int) Math.ceil(doubleAux / 12);
+				//				int calAux = Integer.parseInt(str_list[2]);
+				//				double doubleAux = Integer.parseInt(str_list[2]);
+				//				doubleAux = Math.ceil(calAux/10);
+				//				calAux = (int) Math.ceil(doubleAux / 12);
 				solicitud.setId(Integer.parseInt(str_list[4]));
 				//	System.out.println("fsfsfsfsfs;" + calAux);
 				solicitud.setFs(Integer.parseInt(str_list[2]));			//	System.out.println(str_list[2]);
+				solicitud.setTiempo(Integer.parseInt(str_list[3]));
 				solicitudes.add(solicitud);
 				linea = bufRead.readLine();
 			}    
@@ -111,7 +112,7 @@ public class Aplicacion {
 			//	System.out.println("pasofinal:" + divpasos);
 
 			Abeja resultadoFinal = new Abeja();
-			for(int z = 0; z < 2; z++) {
+			for(int z = 0; z < 1; z++) {
 
 				ArrayList<Abeja> listaNuevasAbejas = new ArrayList();
 
@@ -127,14 +128,23 @@ public class Aplicacion {
 				}
 				// una vez ordenado la solicitud de entrada se le asigna a la primera abeja.
 				// luego se realiza un reordenamiento y se le asigna a las demás abejas.
-				int nroAbeja = 10;
+				int nroAbeja = 3;
 				List<Abeja> listaAbejas = new ArrayList();
 				AsignacionDemanda asig = new AsignacionDemanda(solicitudes, nroAbeja, g);
 				if(w == 1) {
 					listaAbejas = asig.asignacionAbeja();
+
+					for(Abeja a : listaAbejas) {
+						System.out.println(a);
+					}
+
 				}else {
 
 					listaAbejas = asig.asignacionContinua(listaAbejaResult);
+
+					for(Abeja a : listaAbejas) {
+						System.out.println(a);
+					}
 				}
 
 				for(int x = 0; x < 1; x++) {
@@ -149,7 +159,7 @@ public class Aplicacion {
 							int fin = abe.getDemandas().get(i).getDestino();
 							int fs = abe.getDemandas().get(i).getFs();
 							int id = abe.getDemandas().get(i).getId();
-							int tiempo = 4;
+							int tiempo = abe.getDemandas().get(i).getTiempo();
 
 							String listaCaminos = "";
 
@@ -162,54 +172,59 @@ public class Aplicacion {
 							}
 
 
-							boolean ban = verificarExistenciaConexion(abe, id);
-							if(ban) {
-								boolean reasignar = abe.getG().verificar_conexion(inicio, id, fs);
-								if (!reasignar) {
-									//									System.out.println("SE VA A VOLVER A ASIGNAR");
-									BuscarSlot r = new BuscarSlot(abe.getG(), listaCaminos);
-									resultadoSlot res = r.concatenarCaminos(fs, 5, 0);
-									if (res != null) {
-										int p, h, f;
-										for (p = 0; p < abe.getG().grafo.length; p++) {
-											for (f = 0; f < abe.getG().grafo.length; f++) {
-												for (h = 0; h < abe.getG().grafo[p][f].listafs.length; h++) {
-													if (abe.getG().grafo[p][f].listafs[h].id == id) {
-														abe.getG().grafo[p][f].listafs[h].id = 0;
-														abe.getG().grafo[p][f].listafs[h].tiempo = 0;
-														abe.getG().grafo[p][f].listafs[h].libreOcupado = 0;
-													}
+							//							boolean ban = verificarExistenciaConexion(abe, id);
+							//							System.out.println("ban: " + ban);
+							//							System.out.println("ultima abeja :" + abe);
+							//							System.out.println("reques: " + inicio + id + fs);
+							//							if(ban) {
+							boolean reasignar = abe.getG().verificar_conexion(inicio, id, fs);
+							//								System.out.println("no salio de verificar");
+							if (!reasignar) {
+								//									System.out.println("SE VA A VOLVER A ASIGNAR");
+								BuscarSlot r = new BuscarSlot(abe.getG(), listaCaminos);
+								resultadoSlot res = r.concatenarCaminos(fs, 5, 0);
+								if (res != null) {
+									int p, h, f;
+									for (p = 0; p < abe.getG().grafo.length; p++) {
+										for (f = 0; f < abe.getG().grafo.length; f++) {
+											for (h = 0; h < abe.getG().grafo[p][f].listafs.length; h++) {
+												if (abe.getG().grafo[p][f].listafs[h].id == id) {
+													abe.getG().grafo[p][f].listafs[h].id = 0;
+													abe.getG().grafo[p][f].listafs[h].tiempo = 0;
+													abe.getG().grafo[p][f].listafs[h].libreOcupado = 0;
 												}
 											}
 										}
-										//System.out.println("Se elimino y se va a guardar de nuevo");
-										Asignacion asignar = new Asignacion(abe.getG(), res);
-										asignar.marcarSlotUtilizados(id);
-										abe.getG().restar();
-									} else {
-//										System.out.println("NO SE ENCONTRO LUGAR");
-										semiBloqueo++;
 									}
+									//System.out.println("Se elimino y se va a guardar de nuevo");
+									Asignacion asignar = new Asignacion(abe.getG(), res);
+									asignar.marcarSlotUtilizados(id, tiempo);
+									//										abe.getG().restar();
+								} else {
+									//										System.out.println("NO SE ENCONTRO LUGAR");
+									semiBloqueo++;
 								}
-							}else if(!ban) {
+							}else {
 
 								BuscarSlot r = new BuscarSlot(abe.getG(), listaCaminos);
 								resultadoSlot res = r.concatenarCaminos(fs,5,0);
 								if (res !=null) {
 									Asignacion asignar = new Asignacion(abe.getG(), res);
-									asignar.marcarSlotUtilizados(id);
-									abe.getG().restar();
+									asignar.marcarSlotUtilizados(id, tiempo);
+									//									abe.getG().restar();
 
 
 								}else {
 									cont++;
-								//	System.out.println("No se encontró camino posible.");
+									//	System.out.println("No se encontró camino posible.");
 
 								}
 
 							}   
 						}
 						//	System.out.println("abejaID:"+ abe.getId() + "apl:" + abe.getAPL() + "su:" + abe.getSU());
+						cont = cont + abe.getContadorBloqueo();
+						semiBloqueo = semiBloqueo + abe.getSemibloqueo();
 						abe.setContadorBloqueo(cont);
 						su = funcionObjetivo(abe.getG());
 						abe.setSemibloqueo(semiBloqueo);
@@ -220,8 +235,10 @@ public class Aplicacion {
 						abejatabla.add(abe);
 						cont = 0;
 						semiBloqueo = 0;
+
 						//	System.out.println("IDABEJA :" + abe.getId() + "###########funcion objetivos" + abe.getFuncionObjetivo() );
-					}   
+					}  
+
 					List<Abeja> abejaslist = new ArrayList<Abeja>();
 					Tablavalores tabla = new Tablavalores(abejatabla);
 					abejaslist = tabla.valoresob();
@@ -233,7 +250,7 @@ public class Aplicacion {
 						//			System.out.println("lista abejas para trabajar:"+ ab + "tamaño:"+ ab.getDemandas().size());
 					}
 
-				//	System.out.println();
+					//	System.out.println();
 
 					int numeroAleatorio = (int) (Math.random() * 9) + 1;
 					//	System.out.println("numero aleatorio:" + numeroAleatorio);
@@ -265,27 +282,38 @@ public class Aplicacion {
 				for (int l = 0; l < nuevaPoblacion.getDemandas().size(); l++) {
 					aux.add(nuevaPoblacion.getDemandas().get(l));
 				}
+
+				for(int a = 0; a < listaNuevasAbejas.size(); a++) {
+					System.out.println("abejas: " + listaNuevasAbejas.get(a));
+
+				}
+
+				for(int a = 0; a < listaNuevasAbejas.size(); a++) {
+					listaNuevasAbejas.get(a).getG().restar();
+
+				}
+
 				solicitudes = aux;
 				pasoinicio = 0;
 				pasofinal = divpasos;
 				resultadoFinal = nuevaPoblacion;
 				listaAbejaResult = listaNuevasAbejas;
 
-			//	System.out.println("primera iteracion:" + z);
+				//	System.out.println("primera iteracion:" + z);
 			}	
 
 			float entropia = contadorDeEntropia(resultadoFinal)/22;
 			contBloquePorTiempo += resultadoFinal.getContadorBloqueo();
 			contSemiBloqueoTotal += resultadoFinal.getSemibloqueo();
 			System.out.println("############# t" + w);
-//			System.out.println("Cantidad de conexiones entrantes :" + contlineatxt);
+			//			System.out.println("Cantidad de conexiones entrantes :" + contlineatxt);
 
 			System.out.println("La mejor opción la tiene la abeja: " + resultadoFinal.getId() + " indice: " + resultadoFinal.getFuncionObjetivo()/200 + " contadorBloqueoPortiempo: " + resultadoFinal.getContadorBloqueo() + " bloqueoTotal: " + contBloquePorTiempo + " semiBloqueo: " + contSemiBloqueoTotal + " ContadorEntropia: " + entropia);     
 		}
 	}
 
 	private static float contadorDeEntropia(Abeja abe) {
-		
+
 		int m,n,b = 0;
 		float contadorEntropia = 0;
 		int empezoEn = 0;
@@ -303,10 +331,10 @@ public class Aplicacion {
 				}
 			}
 		}
-		
+
 		return contadorEntropia;
 	}
-	
+
 	private static boolean verificarExistenciaConexion(Abeja abe, int id) {
 		boolean ban = false;
 		for(int i=0; i < abe.getG().getGrafo().length; i++)	{
@@ -346,10 +374,10 @@ public class Aplicacion {
 		for (int i = 0; i <= 15; i++) {
 			for (int k = 0; k <= 15; k++) {
 				if (i != k) {
-					List<Path> shortest_paths_list = yenAlg.get_shortest_paths(graph.get_vertex(i), graph.get_vertex(k), 4);
-					//	List<Path> shortest_paths_list2 = yenAlg.get_shortest_paths(graph.get_vertex(k), graph.get_vertex(i), 4);
+					List<Path> shortest_paths_list = yenAlg.get_shortest_paths(graph.get_vertex(i), graph.get_vertex(k), 5);
+					List<Path> shortest_paths_list2 = yenAlg.get_shortest_paths(graph.get_vertex(k), graph.get_vertex(i), 5);
 					writer.println(i + "-" + k + "-" + shortest_paths_list.toString());
-					//	writer.println(k + "-" + i + "-" + shortest_paths_list2.toString());
+					writer.println(k + "-" + i + "-" + shortest_paths_list2.toString());
 
 				}
 			}
@@ -402,67 +430,67 @@ public class Aplicacion {
 
 		return auxiliar;
 	}
-	
+
 	public static void crearArchivosSolicitudes(int l) throws IOException {
-		   PrintWriter writer = null;
-		   int contador = 0;
-		   try {
-		      writer = new PrintWriter("data/solicitudes" + l, "UTF-8");
-		   } catch (FileNotFoundException | UnsupportedEncodingException e) {
-		      e.printStackTrace();
-		   }
-		   for (int i = 0; i <= 50; i++) {
-		      int origen = (int) (Math.random() * (15) + 1);
-		      int destino = (int) (Math.random() * (15) + 1);
-		      int fs = 1 + (int) (Math.random() * (10 - 1) + 1);
-		      int tiempo = 1 + (int) (Math.random() * (5 - 1) + 1);
-		      if (origen == destino) {
-		         while (origen == destino) {
-		            destino = (int) (Math.random() * (15) + 1);
-		         }
-		      }
-
-		      writer.println(origen + "," + destino + "," + fs + "," + tiempo + "," + id);
-		      id++;
-		   }
-
-		   if (l > 1) {
-
-		      FileReader input = new FileReader("data/solicitudes" + (l - 1));
-		      BufferedReader bufRead = new BufferedReader(input);
-
-		      String linea = bufRead.readLine();
-
-		      while (linea != null && contador < 10) {
-
-		         if (linea.trim().equals("")) {
-		            linea = bufRead.readLine();
-		            continue;
-		         }
-		         String[] str_list = linea.trim().split("\\s*,\\s*");
-		         int origen = Integer.parseInt(str_list[0]);
-		         int destino = Integer.parseInt(str_list[1]);
-		         int fsActual = Integer.parseInt(str_list[2]);
-		         int tiempo = Integer.parseInt(str_list[3]);
-		         int id1 = Integer.parseInt(str_list[4]);
-		         int fsNuevo = 1 + (int) (Math.random() * (10 - 1) + 1);
-
-		         if (fsActual == fsNuevo) {
-		            while (fsActual == fsNuevo) {
-		               fsNuevo = 1 + (int) (Math.random() * (10 - 1) + 1);
-		            }
-		         }
-
-		         writer.println(origen + "," + destino + "," + fsNuevo + "," + tiempo + "," + id1);
-		         contador++;
-		         linea = bufRead.readLine();
-
-		      }
-
-		      writer.close();
-		   } else {
-		      writer.close();
-		   }
+		PrintWriter writer = null;
+		int contador = 0;
+		try {
+			writer = new PrintWriter("data/solicitudes" + l, "UTF-8");
+		} catch (FileNotFoundException | UnsupportedEncodingException e) {
+			e.printStackTrace();
 		}
+		for (int i = 0; i <= 1; i++) {
+			int origen = (int) (Math.random() * (15) + 1);
+			int destino = (int) (Math.random() * (15) + 1);
+			int fs = 1 + (int) (Math.random() * (10 - 1) + 1);
+			int tiempo = 1 + (int) (Math.random() * (5 - 1) + 1);
+			if (origen == destino) {
+				while (origen == destino) {
+					destino = (int) (Math.random() * (15) + 1);
+				}
+			}
+
+			writer.println(origen + "," + destino + "," + fs + "," + tiempo + "," + id);
+			id++;
+		}
+
+		if (l > 1) {
+
+			FileReader input = new FileReader("data/solicitudes" + (l - 1));
+			BufferedReader bufRead = new BufferedReader(input);
+
+			String linea = bufRead.readLine();
+
+			while (linea != null && contador < 10) {
+
+				if (linea.trim().equals("")) {
+					linea = bufRead.readLine();
+					continue;
+				}
+				String[] str_list = linea.trim().split("\\s*,\\s*");
+				int origen = Integer.parseInt(str_list[0]);
+				int destino = Integer.parseInt(str_list[1]);
+				int fsActual = Integer.parseInt(str_list[2]);
+				int tiempo = Integer.parseInt(str_list[3]);
+				int id1 = Integer.parseInt(str_list[4]);
+				int fsNuevo = 1 + (int) (Math.random() * (10 - 1) + 1);
+
+				if (fsActual == fsNuevo) {
+					while (fsActual == fsNuevo) {
+						fsNuevo = 1 + (int) (Math.random() * (10 - 1) + 1);
+					}
+				}
+
+				writer.println(origen + "," + destino + "," + fsNuevo + "," + tiempo + "," + id1);
+				contador++;
+				linea = bufRead.readLine();
+
+			}
+
+			writer.close();
+		} else {
+			writer.close();
+		}
+	}
 
 }

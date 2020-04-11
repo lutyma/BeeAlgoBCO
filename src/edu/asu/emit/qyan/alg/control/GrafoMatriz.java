@@ -3,26 +3,26 @@ package edu.asu.emit.qyan.alg.control;
 import java.util.Arrays;
 
 public class GrafoMatriz {
-     
+
 	int nodos;
 	Enlace[][] grafo; 
 	int[] cadenaVertices;
 	GrafoMatriz(){
-		
-		
+
+
 	}
-	
+
 	GrafoMatriz(int[] serieNodos) {
 		cadenaVertices = new int[serieNodos.length];
 		for (int i = 0; i<serieNodos.length;i++) {
 			cadenaVertices[i]=serieNodos[i];
 		}
 		nodos = serieNodos.length;
-	//	System.out.println(nodos.length);
+		//	System.out.println(nodos.length);
 		grafo = new Enlace[serieNodos.length][serieNodos.length];
 	}
-	
-	
+
+
 	public GrafoMatriz(int nodos, Enlace[][] grafo, int[] cadenaVertices) {
 		super();
 		this.nodos = nodos;
@@ -44,24 +44,24 @@ public class GrafoMatriz {
 			}
 		}	
 	}
-	
-	public void agregarRuta(int origen, int destino, int distancia, int tiempo, int cantfs) {
-		 //	System.out.println(origen);
-		 //	System.out.println(destino);
-			int n1 = posicionNodo(origen);
-		 //	System.out.print(n1);
-			
-			int n2 = posicionNodo(destino);
-			grafo[n1][n2].distancia = distancia;
-			grafo[n1][n2].tiempo = tiempo;
-			grafo[n1][n2].cantfs = cantfs;
 
-			grafo[n2][n1].distancia = distancia;
-			grafo[n2][n1].tiempo = tiempo;
-			grafo[n2][n1].cantfs = cantfs;
+	public void agregarRuta(int origen, int destino, int distancia, int tiempo, int cantfs) {
+		//	System.out.println(origen);
+		//	System.out.println(destino);
+		int n1 = posicionNodo(origen);
+		//	System.out.print(n1);
+
+		int n2 = posicionNodo(destino);
+		grafo[n1][n2].distancia = distancia;
+		grafo[n1][n2].tiempo = tiempo;
+		grafo[n1][n2].cantfs = cantfs;
+
+		grafo[n2][n1].distancia = distancia;
+		grafo[n2][n1].tiempo = tiempo;
+		grafo[n2][n1].cantfs = cantfs;
 
 	}
-	
+
 	public void restar() {
 		int i, j, k;
 
@@ -85,7 +85,7 @@ public class GrafoMatriz {
 			}
 		}
 	}
-	
+
 	public boolean verificar_conexion(int origen, Integer id, int cantfs) {
 
 		int i;
@@ -104,7 +104,7 @@ public class GrafoMatriz {
 					String[] variables = this.grafo[origen][i].enlace.get(j).split(",");
 					String id1 = variables[0];
 					if (id.toString().equals(id1)){
-//						j=this.grafo[origen][i].enlace.size(); PARA TERMINAR EL FOR
+						//						j=this.grafo[origen][i].enlace.size(); PARA TERMINAR EL FOR
 						conexiones = variables;
 
 						// se van a concatenar los vectores del camino de la conexion
@@ -256,7 +256,7 @@ public class GrafoMatriz {
 				espacios_necesarios--;
 			}
 			if (contador_der == 0 && contador_izq == 0 && espacios_necesarios > 0) {
-//				System.out.println("la conexion no entra");
+				//				System.out.println("la conexion no entra");
 				return false;
 			}
 		}
@@ -289,7 +289,7 @@ public class GrafoMatriz {
 				cab = true;
 
 				while(izqFalso+derFalso > 0){
-//					System.out.println("izq " + izqFalso + "der " + derFalso);
+					//					System.out.println("izq " + izqFalso + "der " + derFalso);
 					if (izqFalso > 0) {
 						cab = false;
 						banderaIzq = true;
@@ -302,10 +302,10 @@ public class GrafoMatriz {
 						this.grafo[destino1][origen1].listafs[inicio - h].tiempo = this.grafo[origen1][destino1].listafs[inicio].tiempo;
 						izqFalso--;
 					} else if(derFalso > 0) {
-//						System.out.println(longitud + " " + inicio + " " + h);
+						//						System.out.println(longitud + " " + inicio + " " + h);
 						if (!banderaDer) {
 							banderaDer = true;
-//							System.out.println("entro en h==1");
+							//							System.out.println("entro en h==1");
 							cab = true;
 							this.grafo[origen1][destino1].listafs[longitud + inicio].libreOcupado = 1;
 							this.grafo[origen1][destino1].listafs[longitud + inicio].id = this.grafo[origen1][destino1].listafs[inicio].id;
@@ -317,8 +317,8 @@ public class GrafoMatriz {
 							derFalso--;
 						} else {
 							cab = true;
-//							System.out.println("entro en else");
-//							System.out.println(h);
+							//							System.out.println("entro en else");
+							//							System.out.println(h);
 							this.grafo[origen1][destino1].listafs[(longitud + inicio) + (g-1)].libreOcupado = 1;
 							this.grafo[origen1][destino1].listafs[(longitud + inicio) + (g-1)].id = this.grafo[origen1][destino1].listafs[inicio].id;
 							this.grafo[origen1][destino1].listafs[(longitud + inicio) + (g-1)].tiempo = this.grafo[origen1][destino1].listafs[inicio].tiempo;
@@ -329,9 +329,9 @@ public class GrafoMatriz {
 							derFalso--;
 						}
 					}
-//					if (cab || izqFalso == 0) {
-//						h++;
-//					}
+					//					if (cab || izqFalso == 0) {
+					//						h++;
+					//					}
 					if(banderaIzq) h++;
 					if (banderaDer) g++;
 				}
@@ -339,13 +339,13 @@ public class GrafoMatriz {
 			//}
 		}
 		else{
-//			System.out.println("la conexion no entra");
+			//			System.out.println("la conexion no entra");
 			return false;
 		}
 		return true;
 
 	}
-	
+
 	public int posicionNodo(int nodo) {
 		for(int i=0; i<cadenaVertices.length; i++) {
 			if(cadenaVertices[i]==nodo) return i;
@@ -382,6 +382,6 @@ public class GrafoMatriz {
 		return "GrafoMatriz [nodos=" + nodos + ", grafo=" + Arrays.toString(grafo) + ", cadenaVertices="
 				+ Arrays.toString(cadenaVertices) + "]";
 	}
-	
-	
+
+
 }
