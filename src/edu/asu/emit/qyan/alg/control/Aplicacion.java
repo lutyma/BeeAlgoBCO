@@ -73,6 +73,7 @@ public class Aplicacion {
 			int contlineatxt = 0;
 			int cont = 0;
 			int semiBloqueo = 0;
+			int bloqueoPorTiempo = 0;
 
 			while (linea != null ) {
 
@@ -128,30 +129,31 @@ public class Aplicacion {
 				}
 				// una vez ordenado la solicitud de entrada se le asigna a la primera abeja.
 				// luego se realiza un reordenamiento y se le asigna a las demás abejas.
-				int nroAbeja = 3;
+				int nroAbeja = 10;
 				List<Abeja> listaAbejas = new ArrayList();
 				AsignacionDemanda asig = new AsignacionDemanda(solicitudes, nroAbeja, g);
 				if(w == 1) {
 					listaAbejas = asig.asignacionAbeja();
 
-					for(Abeja a : listaAbejas) {
-						System.out.println(a);
-					}
+//					for(Abeja a : listaAbejas) {
+//						System.out.println(a);
+//					}
 
 				}else {
 
 					listaAbejas = asig.asignacionContinua(listaAbejaResult);
 
-					for(Abeja a : listaAbejas) {
-						System.out.println(a);
-					}
+//					for(Abeja a : listaAbejas) {
+//						System.out.println(a);
+//					}
 				}
 
 				for(int x = 0; x < 1; x++) {
 					ArrayList<Abeja> abejatabla = new ArrayList<Abeja>();
 					for (int a=0; a < listaAbejas.size(); a++) {
 						GrafoMatriz graf = copiarGrafo(listaAbejas.get(a).getG());
-						Abeja abe = new Abeja(listaAbejas.get(a).getId(),listaAbejas.get(a).getDemandas() , graf);
+						Abeja abe = new Abeja(listaAbejas.get(a).getId(),listaAbejas.get(a).getDemandas() , graf, 
+								listaAbejas.get(a).getContadorBloqueo(), listaAbejas.get(a).getSemibloqueo());
 						int su = 0;
 
 						for(int i=0; i < abe.getDemandas().size(); i++) {
@@ -216,6 +218,7 @@ public class Aplicacion {
 
 								}else {
 									cont++;
+									bloqueoPorTiempo++;
 									//	System.out.println("No se encontró camino posible.");
 
 								}
@@ -225,6 +228,7 @@ public class Aplicacion {
 						//	System.out.println("abejaID:"+ abe.getId() + "apl:" + abe.getAPL() + "su:" + abe.getSU());
 						cont = cont + abe.getContadorBloqueo();
 						semiBloqueo = semiBloqueo + abe.getSemibloqueo();
+						abe.setBloqueoPorTiempo(bloqueoPorTiempo);
 						abe.setContadorBloqueo(cont);
 						su = funcionObjetivo(abe.getG());
 						abe.setSemibloqueo(semiBloqueo);
@@ -235,6 +239,7 @@ public class Aplicacion {
 						abejatabla.add(abe);
 						cont = 0;
 						semiBloqueo = 0;
+						bloqueoPorTiempo = 0;
 
 						//	System.out.println("IDABEJA :" + abe.getId() + "###########funcion objetivos" + abe.getFuncionObjetivo() );
 					}  
@@ -303,12 +308,13 @@ public class Aplicacion {
 			}	
 
 			float entropia = contadorDeEntropia(resultadoFinal)/22;
-			contBloquePorTiempo += resultadoFinal.getContadorBloqueo();
-			contSemiBloqueoTotal += resultadoFinal.getSemibloqueo();
+
 			System.out.println("############# t" + w);
 			//			System.out.println("Cantidad de conexiones entrantes :" + contlineatxt);
 
-			System.out.println("La mejor opción la tiene la abeja: " + resultadoFinal.getId() + " indice: " + resultadoFinal.getFuncionObjetivo()/200 + " contadorBloqueoPortiempo: " + resultadoFinal.getContadorBloqueo() + " bloqueoTotal: " + contBloquePorTiempo + " semiBloqueo: " + contSemiBloqueoTotal + " ContadorEntropia: " + entropia);     
+			System.out.println("La mejor opción la tiene la abeja: " + resultadoFinal.getId() + " indice: " + resultadoFinal.getFuncionObjetivo()/200
+					+ " bloqueos: " + resultadoFinal.getContadorBloqueo() + " bloqueoPorTiempo: " + resultadoFinal.getBloqueoPorTiempo()
+					+ " semiBloqueo: " + resultadoFinal.getSemibloqueo() + " ContadorEntropia: " + entropia);     
 		}
 	}
 
@@ -439,11 +445,11 @@ public class Aplicacion {
 		} catch (FileNotFoundException | UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		for (int i = 0; i <= 1; i++) {
+		for (int i = 1; i <= 50; i++) {
 			int origen = (int) (Math.random() * (15) + 1);
 			int destino = (int) (Math.random() * (15) + 1);
 			int fs = 1 + (int) (Math.random() * (10 - 1) + 1);
-			int tiempo = 1 + (int) (Math.random() * (5 - 1) + 1);
+			int tiempo = 1 + (int) (Math.random() * (10) + 1);
 			if (origen == destino) {
 				while (origen == destino) {
 					destino = (int) (Math.random() * (15) + 1);
@@ -491,6 +497,6 @@ public class Aplicacion {
 		} else {
 			writer.close();
 		}
-	}
 
+	}
 }

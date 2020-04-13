@@ -136,6 +136,8 @@ public class Reclutamiento {
 		ArrayList<Identificador> vecauxiliar = new ArrayList<Identificador>();
 		respuesta_nueva_abeja.setG(reclutadora.getG()); 
 		respuesta_nueva_abeja.setDemandas(lista);
+		respuesta_nueva_abeja.setContadorBloqueo(reclutadora.getContadorBloqueo());
+		respuesta_nueva_abeja.setSemibloqueo(reclutadora.getSemibloqueo());
 		List<Request> demandasactuales = lista;
 		//   System.out.println("demanda a copiar" + reclutadora.getDemandas());
 

@@ -16,6 +16,7 @@ public class Abeja {
     private double reclut;
     private int contadorBloqueo;
     private int semibloqueo;
+    private int bloqueoPorTiempo;
     
     
 	public Abeja() {
@@ -29,11 +30,13 @@ public class Abeja {
 	}
 	
 	
-	public Abeja(int id, List<Request> demandas, GrafoMatriz g) {
+	public Abeja(int id, List<Request> demandas, GrafoMatriz g, int contadorBloqueo, int semibloqueo) {
 		super();
-		Id = id;
-		Demandas = demandas;
+		this.Id = id;
+		this.Demandas = demandas;
 		this.g = g;
+		this.contadorBloqueo = contadorBloqueo;
+		this.semibloqueo = semibloqueo;
 	}
 
 	public int getId() {
@@ -131,12 +134,23 @@ public class Abeja {
 	public void setSemibloqueo(int semibloqueo) {
 		this.semibloqueo = semibloqueo;
 	}
+	
+	
+
+	public int getBloqueoPorTiempo() {
+		return bloqueoPorTiempo;
+	}
+
+	public void setBloqueoPorTiempo(int bloqueoPorTiempo) {
+		this.bloqueoPorTiempo = bloqueoPorTiempo;
+	}
 
 	@Override
 	public String toString() {
 		return "Abeja [Id=" + Id + ", Demandas=" + Demandas + ", solucion=" + solucion + ", funcionObjetivo="
 				+ funcionObjetivo + ", g=" + g + ", SU=" + SU + ", APL=" + APL + ", ob=" + ob + ", pb=" + pb
-				+ ", reclut=" + reclut + ", contadorBloqueo=" + contadorBloqueo + ", semibloqueo=" + semibloqueo + "]";
+				+ ", reclut=" + reclut + ", contadorBloqueo=" + contadorBloqueo + ", semibloqueo=" + semibloqueo
+				+ ", bloqueoPorTiempo=" + bloqueoPorTiempo + "]";
 	}
 
     
